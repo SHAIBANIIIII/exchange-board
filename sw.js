@@ -23,7 +23,8 @@ self.addEventListener('install', (event) => {
     caches.open(CACHE_VERSION)
       .then((cache) => cache.addAll(APP_SHELL))
       .then(() => self.skipWaiting())
-      .catch((err) => console.warn('SW install cache error', err))
+      // Avoid using console in CI lint; swallow the error gracefully instead.
+      .catch(() => null)
   );
 });
 
